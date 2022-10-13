@@ -1,0 +1,56 @@
+﻿<Window x:Name="frm_Principal" x:Class="GuilhotiNestv01.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GuilhotiNestv01"
+        mc:Ignorable="d"
+        Title="GuilhotiNest v01" Height="900" Width="1200" MouseMove="frm_Principal_MouseMove" MouseLeftButtonDown="frm_Principal_MouseLeftButtonDown" Foreground="{x:Null}" WindowState="Maximized">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF272727" Offset="0"/>
+            <GradientStop Color="#FF8D8A8A" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid Margin="0" ShowGridLines="True" RenderTransformOrigin="0.2,0.13">
+        <Menu x:Name="mn_menu" Height="58" Margin="0" VerticalAlignment="Top" BorderBrush="White" BorderThickness="0,0,0,2" Foreground="White" FontWeight="Bold" FontStyle="Italic">
+            <Menu.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FFBDBDBD" Offset="1"/>
+                    <GradientStop Color="#FF6E6E6E" Offset="0.135"/>
+                </LinearGradientBrush>
+            </Menu.Background>
+            <MenuItem x:Name="btn_arquivo" Header="Arquivo" UseLayoutRounding="False" Padding="15,0,0,0" Margin="5,0,0,0" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" Cursor="Hand" HorizontalAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" Width="75" VerticalContentAlignment="Center" TextOptions.TextFormattingMode="Display">
+                <MenuItem.GroupStyle>
+                    <GroupStyle/>
+                </MenuItem.GroupStyle>
+                <Button Content="Novo" Background="{x:Null}" Cursor="Hand" Name="btn_Novo" BorderBrush="{x:Null}" Foreground="Black" IsHitTestVisible="False" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Disabled" Padding="0" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Center" Width="79"/>
+                <Button Cursor="Hand"  Background="{x:Null}" Content="Abrir" Name="btn_abrir" BorderBrush="{x:Null}" Foreground="Black" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" Padding="0" Height="17" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True"/>
+                <Button  Cursor="Hand" Background="{x:Null}" Content="Salvar" Name="btn_salvar" BorderBrush="{x:Null}" Foreground="Black" IsHitTestVisible="False" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Grid.IsSharedSizeScope="True" Padding="0" Height="17" UseLayoutRounding="True" ScrollViewer.CanContentScroll="True"/>
+            </MenuItem>
+            <MenuItem Header="Importar" Foreground="White">
+                <MenuItem Foreground="Black" x:Name="btn_import_inventor" Header="Autodesk Inventor" HorizontalAlignment="Left" Click="btn_import_inventor_Click" Margin="0" Padding="0,0,-40,0"/>
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="tabControl" Margin="0,60,0,0" Width="1182" HorizontalAlignment="Left" TabStripPlacement="Left" Background="{x:Null}">
+            <TabItem Header="Área de Trabalho" Background="{x:Null}" Foreground="#FF575757">
+                <Grid>
+                    <Canvas x:Name="layout" HorizontalAlignment="Left" Height="783" Margin="10,10,0,0" VerticalAlignment="Top" Width="1100">
+                        <Path Stroke="Red" Fill="#FF1A1A74" StrokeThickness="2" Data="m 10 20 h 3000 v 1200 h -3000 z" RenderTransformOrigin="0.5,0.5" Canvas.Left="-974" Canvas.Top="-228">
+                            <Path.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="0.3" ScaleY="0.3"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Path.RenderTransform>
+                        </Path>
+                    </Canvas>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,74 @@
+﻿<Window x:Class="GuilhotiNest.frm_novatarefa"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:c="clr-namespace:GuilhotiNest.ViewModel"
+        mc:Ignorable="d"
+        xmlns:f="clr-namespace:GuilhotiNest.ViewModel"
+        Title="Nova Tarefa" Height="440.4" Width="748.458">
+    <!--<Window.DataContext>
+        <Binding  />
+    </Window.DataContext>-->
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF504BA8" Offset="1"/>
+                <GradientStop Color="#FF0E0534" Offset="0.263"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <GroupBox x:Name="groupBox" Header="Área de Trabalho" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="14,14,0,0" Height="378" Width="338" Foreground="White" FontSize="14" BorderThickness="0.4,0.4,0.4,0.5">
+            <DataGrid x:Name="dg_workspace" Margin="2,10,3.8,2.8" Background="#FF252365" BorderBrush="#FF00FFD6" Foreground="Black" HeadersVisibility="Column" AutoGenerateColumns="False" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" ColumnHeaderHeight="20" IsReadOnly="True" GridLinesVisibility="Horizontal" Padding="10,0,0,0" ColumnWidth="SizeToHeader" MinColumnWidth="50">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontSize" Value="10"/>
+                        <!--<Setter Property="FontWeight" Value="Bold"/>-->
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="MidnightBlue"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Nome}" Foreground="Black" Header="Item" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Ordem}" Foreground="Black" Header="Ordem" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Quantidade}" Foreground="Black" Header="Qtde" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Material}" Foreground="Black" Header="Material" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Espessura}" Foreground="Black" Header="Espessura" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Area}" Foreground="Black" Header="Area" FontSize="10"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox_Copy" Header="Tarefa" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="382,14,0,0" Height="216" Width="338" Foreground="White" FontSize="14" BorderThickness="0.4,0.4,0.4,0.5">
+            <DataGrid x:Name="dg_task" Margin="2,10,3.8,4" Background="#FF252365" BorderBrush="#FF00FFD6" Foreground="Black" HeadersVisibility="Column" AutoGenerateColumns="False" HorizontalGridLinesBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" VerticalGridLinesBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" ColumnHeaderHeight="20" IsReadOnly="True" GridLinesVisibility="Horizontal" Padding="10,0,0,0" ColumnWidth="SizeToHeader" MinColumnWidth="50">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="FontSize" Value="10"/>
+                        <!--<Setter Property="FontWeight" Value="Bold"/>-->
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="Background" Value="MidnightBlue"/>
+                        <Setter Property="Foreground" Value="White"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Binding="{Binding Nome}" Foreground="Black" Header="Item" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Ordem}" Foreground="Black" Header="Ordem" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Quantidade}" Foreground="Black" Header="Qtde" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Material}" Foreground="Black" Header="Material" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Espessura}" Foreground="Black" Header="Espessura" FontSize="10"/>
+                    <DataGridTextColumn Binding="{Binding Area}" Foreground="Black" Header="Area" FontSize="10"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+        <Button x:Name="btn_add_doc" Content="»" HorizontalAlignment="Left" Margin="354,91,0,0" VerticalAlignment="Top" Width="27" Height="25" Background="{x:Null}" BorderBrush="White" Foreground="White" FontWeight="Bold" FontSize="24" Padding="1,-8,1,0" Click="btn_add_doc_Click"/>
+        <Button x:Name="btn_remove_doc" Content="«" HorizontalAlignment="Left" Margin="354,122,0,0" VerticalAlignment="Top" Width="27" Height="25" Background="{x:Null}" BorderBrush="White" Foreground="White" FontWeight="Bold" FontSize="24" Padding="1,-8,1,0" Click="btn_remove_doc_Click"/>
+        <Button x:Name="btn_cancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="590,257,0,0" VerticalAlignment="Top" Width="130" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="25" UseLayoutRounding="False" Click="btn_cancelar_Click"/>
+        <ComboBox x:Name="cb_material" HorizontalAlignment="Left" Margin="382,298,0,0" VerticalAlignment="Top" Width="133" Height="20" BorderBrush="#FF00FFD6" Background="{x:Null}" DisplayMemberPath="Material"/>
+        <ComboBox x:Name="cb_espessura" HorizontalAlignment="Left" Margin="382,335,0,0" VerticalAlignment="Top" Width="133" Height="20" Background="{x:Null}" BorderBrush="#FF00FFD6" DisplayMemberPath="Espessura"/>
+        <Label x:Name="label" Content="Espessura (mm)" HorizontalAlignment="Left" Margin="382,319,0,0" VerticalAlignment="Top" Padding="1.1,0,0,0" Foreground="White"/>
+        <Label x:Name="label_Copy" Content="Material" HorizontalAlignment="Left" Margin="382,282,0,0" VerticalAlignment="Top" Padding="1.1,0,0,0" Foreground="White"/>
+        <TextBox x:Name="txt_nome_task" HorizontalAlignment="Left" Height="21" Margin="382,257,0,0" TextWrapping="Wrap" Text="Default" VerticalAlignment="Top" Width="133" Background="White" Foreground="Black" BorderBrush="#FF828282" Padding="3,1,0,0"/>
+        <Label x:Name="label_Copy1" Content="Nome" HorizontalAlignment="Left" Margin="382,241,0,0" VerticalAlignment="Top" Padding="1.1,0,0,0" Foreground="White"/>
+        <Button x:Name="btn_criar_tarefa" Content="Concluído" HorizontalAlignment="Left" Margin="590,293,0,0" VerticalAlignment="Top" Width="130" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="30.6" UseLayoutRounding="False" Click="btn_criar_tarefa_Click"/>
+    </Grid>
+</Window>

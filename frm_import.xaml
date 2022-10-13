@@ -1,0 +1,36 @@
+﻿<Window x:Class="GuilhotiNest.frm_import"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GuilhotiNest"
+        mc:Ignorable="d"
+        Title="Novo Layout" Height="271.499" Width="545.994" ResizeMode="NoResize" Closed="Window_Closed">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF504BA8" Offset="1"/>
+                <GradientStop Color="#FF0E0534" Offset="0.263"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Canvas x:Name="rep_chapa" Margin="10,10,220.4,9.6" Width="304" Height="222.4">
+            <!--<Path Fill="DarkCyan" Stroke="DarkBlue" StrokeThickness="1" Data="m 0 0 h 3000 v 1200 h -3000 z" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="0.1" ScaleY="0.1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>-->
+        </Canvas>
+        <Button x:Name="btn_criar" Content="Concluir" Margin="0,204,14.2,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="White" Foreground="White" HorizontalAlignment="Right" Width="188" Click="btn_criar_Click"/>
+        <TextBox x:Name="txt_cmd_chapa" Height="117" Margin="0,10,14.2,0" TextWrapping="Wrap" Text="m 0 0 h 3000 v 1200 h -3000 z" VerticalAlignment="Top" BorderBrush="White" Foreground="White" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Right" Width="188" Background="{x:Null}" TextChanged="txt_cmd_chapa_TextChanged"/>
+        <Button x:Name="btn_update" Content="Atualizar" Margin="0,178,14.2,0" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="White" Foreground="White" Click="btn_update_Click" HorizontalAlignment="Right" Width="188"/>
+        <ComboBox x:Name="cb_materiais" HorizontalAlignment="Right" VerticalAlignment="Top" Width="188" Margin="0,148,14.2,0" Background="{x:Null}" Foreground="White" FontWeight="Bold"/>
+        <Label x:Name="label" Content="Material/Espessura" HorizontalAlignment="Left" Margin="337,130,0,0" VerticalAlignment="Top" Padding="0" Width="188" Background="{x:Null}" BorderBrush="Black" Foreground="White"/>
+
+    </Grid>
+</Window>
+
