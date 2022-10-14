@@ -139,7 +139,7 @@ namespace GuilhotiNest.ViewModel
                     if (Math.Round((linha.Geometry.SweepAngle * 180) / Math.PI, 2) > 180) grande = 1;
                     cmd = string.Format(" M {0} A {1} {1} 0 {4} {2} {3}", Conversor(pt_inicio, min_inv), raio, obl, Conversor(pt_fim, min_inv),grande);
                 }
-                else
+                else if (linha.GeometryType == CurveTypeEnum.kCircleCurve)
                 {
                     double raio = Math.Round((linha.Geometry.Radius), 2);
                     double centro_x = Math.Round((linha.Geometry.Center.X * 10), 2);
@@ -148,6 +148,10 @@ namespace GuilhotiNest.ViewModel
                     Point PT0 = AppServer.TransientGeometry.CreatePoint(linha.Geometry.Center.X - raio, linha.Geometry.Center.Y - 0.001, linha.Geometry.Center.Z);
                     Point PT1 = AppServer.TransientGeometry.CreatePoint(linha.Geometry.Center.X - raio, linha.Geometry.Center.Y, linha.Geometry.Center.Z);
                     cmd = string.Format(" M {0} A {1} {1} 0 1 0 {2}", Conversor(PT1, min_inv), raio*10, Conversor(PT0, min_inv));
+                }
+                else
+                {
+                    cmd = string.Format(" M {0} L {1}", Conversor(pt_inicio, min_inv), Conversor(pt_fim, min_inv));
                 }
             }
             else
@@ -166,7 +170,7 @@ namespace GuilhotiNest.ViewModel
                 }
                 else
                 {
-
+                    cmd = string.Format(" M {0} L {1}", Conversor(pt_inicio, min_inv), Conversor(pt_fim, min_inv));
                 }
             }
 
