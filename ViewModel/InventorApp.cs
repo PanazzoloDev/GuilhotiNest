@@ -135,7 +135,7 @@ namespace GuilhotiNest.ViewModel
                 {
                     double raio = Math.Round((linha.Geometry.Radius * 10), 2);
                     int obl = 0, grande = 0;
-                    if (Esquerda(linha)) obl = 1;
+                    if (linha.Geometry.normal.z > 0) obl = 1;
                     if (Math.Round((linha.Geometry.SweepAngle * 180) / Math.PI, 2) > 180) grande = 1;
                     cmd = string.Format(" M {0} A {1} {1} 0 {4} {2} {3}", Conversor(pt_inicio, min_inv), raio, obl, Conversor(pt_fim, min_inv),grande);
                 }
@@ -160,7 +160,7 @@ namespace GuilhotiNest.ViewModel
                 {
                     double raio = Math.Round((linha.Geometry.Radius * 10), 2);
                     int obl = 0, grande = 0;
-                    if (Esquerda(linha)) obl = 1;
+                    if (linha.Geometry.normal.z > 0) obl = 1;
                     if (Math.Round((linha.Geometry.SweepAngle * 180) / Math.PI, 2) > 180) grande = 1;
                     cmd = string.Format(" A {0} {0} 0 {3} {1} {2}",raio, obl, Conversor(pt_fim, min_inv),grande);
                 }
@@ -171,76 +171,6 @@ namespace GuilhotiNest.ViewModel
             }
 
             return cmd;
-        }
-        private bool Esquerda(Edge linha)
-        {
-            double X = (linha.StartVertex.Point.X - linha.StopVertex.Point.X);
-            double Y = (linha.StartVertex.Point.Y - linha.StopVertex.Point.Y);
-            double Z = (linha.StartVertex.Point.Z - linha.StopVertex.Point.Z);
-
-            System.Windows.Point geocentro;
-            geocentro = new System.Windows.Point(linha.Evaluator.RangeBox.MinPoint.X + ((linha.Evaluator.RangeBox.MaxPoint.X - linha.Evaluator.RangeBox.MinPoint.X) / 2), linha.Evaluator.RangeBox.MinPoint.Y + ((linha.Evaluator.RangeBox.MaxPoint.Y - linha.Evaluator.RangeBox.MinPoint.Y) / 2));
-
-
-            if (Y > 0)
-            {
-
-                if (geocentro.X < linha.Geometry.Center.X)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }     
-            }
-            else if (Y < 0)
-            {
-                if (geocentro.X < linha.Geometry.Center.X)
-                {
-                    return false;
-                    //MsgBox "Descendo pra direita: Direita"
-                }
-                else
-                {
-                    return true;
-                    //MsgBox "Descendo pra direita: Esquerda"
-                }
-            }
-            else
-            {
-                if (X > 0)
-                {
-                    if (geocentro.Y < linha.Geometry.Center.Y)
-                    {
-                        return true;
-                        //MsgBox "Descendo pra direita: Direita"
-                    }
-                    else
-                    {
-                        return false;
-                        //MsgBox "Descendo pra direita: Esquerda"
-                    }
-                }
-                else if (X < 0)
-                {
-                    if (geocentro.Y < linha.Geometry.Center.Y)
-                    {
-                        return true;
-                        //MsgBox "Descendo pra direita: Direita"
-                    }
-                    else
-                    {
-                        return false;
-                        //MsgBox "Descendo pra direita: Esquerda"
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
         }
         //Classe Interna
         internal class param
