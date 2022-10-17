@@ -24,11 +24,13 @@ namespace GuilhotiNest.ViewModel
 
             foreach (ApprenticeServerDocument doc in aDoc.ReferencedDocuments)
             {
+                var qtde = aDoc.ComponentDefinition.Occurrences.AllReferencedOccurrences[doc];
                 if (doc.DocumentType != DocumentTypeEnum.kPartDocumentObject) continue;
                 if (doc.PropertySets[3][17].Value == "Sheet Metal")
                 {
                     Document Item = ExtrairDados(doc);
                     if(Item != null) Documentos.Add(Item);
+                    Item.Quantidade = qtde.Count;
                 }
             }
         }
@@ -49,18 +51,32 @@ namespace GuilhotiNest.ViewModel
         private Document ExtrairDados(ApprenticeServerDocument pDoc)
         {
             SheetMetalComponentDefinition sm_def = pDoc.ComponentDefinition as SheetMetalComponentDefinition;
-
+            Face fc;Point min; Point max;
             if (sm_def.HasFlatPattern == false)
             {
                 return null;
             }
+            try
+            {
+                 fc = sm_def.FlatPattern.BottomFace;
+                 min = fc.Evaluator.RangeBox.MinPoint;
+                 max = fc.Evaluator.RangeBox.MaxPoint;
+            }
+            catch
+            {
+                return null;
+            }
 
-            Face fc = sm_def.FlatPattern.BottomFace;
-            Point min = fc.Evaluator.RangeBox.MinPoint;
-            Point max = fc.Evaluator.RangeBox.MaxPoint;
 
             string comando = string.Empty;
             List<param> parametros;
+
+            int of = 0;
+            try
+            {
+                of = pDoc.PropertySets[4]["os"].Value.ToString();
+            }
+            catch{}
 
             foreach (EdgeLoop loop in fc.EdgeLoops)
             {
@@ -95,7 +111,7 @@ namespace GuilhotiNest.ViewModel
                 comando = comando + " z ";
             }
             comando = comando.Replace(',', '.');
-            Document doc = new Document(pDoc.DisplayName.ToString(), pDoc.PropertySets[3][10].Value, comando,2.65, Math.Round((max.X - min.X) * 10, 2), Math.Round((max.Y - min.Y) * 10, 2), Math.Round(((max.Y - min.Y) * (max.X - min.X) * 10), 2),0,1);
+            Document doc = new Document(pDoc.DisplayName.ToString(), pDoc.PropertySets[3][10].Value, comando,2.65, Math.Round((max.X - min.X) * 10, 2), Math.Round((max.Y - min.Y) * 10, 2), Math.Round(((max.Y - min.Y) * (max.X - min.X) * 10), 2),of,1);
             return doc;
         }
         private string Conversor(Point inv, Point min)

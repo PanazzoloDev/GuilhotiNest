@@ -284,9 +284,10 @@
             <Image x:Name="img" Margin="4" Grid.Row="2" Source="{Binding Path=Thumbnail}"/>
         </Grid>
 
-        <Canvas x:Name="Design" Margin="180,111,150,40">
+        <Canvas x:Name="Design" Margin="185,116,145,35">
             <!--<Path Fill="MidnightBlue" Stroke="Red" StrokeThickness="1" Data="M 0 0 A 150 150 0 0 0 70 70 M 90 70 A 150 150 0 0 0 20 0" Margin="0,0,0,0"/>-->
-            <Path Fill="MidnightBlue" Stroke="Red" StrokeThickness="1" Margin="20" Data="M 46.39 35.78 A 32.27 32.27 0 1 0 65.66 76.52 "/>
+            <!--<Path Stroke="Red" Margin="50" Data="M 46.39 35.78 A 32.27 32.27 0 1 0 65.66 76.52 h 100 v -41 z" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeDashArray="2 2" StrokeThickness="0.5" StrokeDashCap="Square">-->
+            <!--</Path>-->
             <ContentPresenter Content="{Binding Design}"/>
         </Canvas>
         <Grid Margin="0" Height="40" VerticalAlignment="Bottom">
