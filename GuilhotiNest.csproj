@@ -35,9 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,6 +66,7 @@
     </Compile>
     <Compile Include="ViewModel\Arvore.cs" />
     <Compile Include="ViewModel\Controle.cs" />
+    <Compile Include="ViewModel\Cortes.cs" />
     <Compile Include="ViewModel\Document.cs" />
     <Compile Include="ViewModel\Grupo.cs" />
     <Compile Include="ViewModel\InventorApp.cs" />

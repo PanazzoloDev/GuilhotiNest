@@ -8,8 +8,9 @@
         Title="GuilhotiNest v01" Height="842" Width="1200" MouseMove="frm_Principal_MouseMove" MouseLeftButtonDown="frm_Principal_MouseLeftButtonDown" Foreground="{x:Null}" WindowState="Maximized" MouseLeftButtonUp="frm_Principal_MouseLeftButtonUp" MouseWheel="frm_Principal_MouseWheel" KeyDown="frm_Principal_KeyDown">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="#FF262626" Offset="1"/>
-            <GradientStop Color="#FF9D9D9D"/>
+            <GradientStop Color="#FF3E3E3E" Offset="1"/>
+            <GradientStop Color="#FF464646" Offset="0.408"/>
+            <GradientStop Color="#FF212121"/>
         </LinearGradientBrush>
     </Window.Background>
     <Grid Margin="0" ShowGridLines="False" RenderTransformOrigin="0,0">
@@ -284,10 +285,9 @@
             <Image x:Name="img" Margin="4" Grid.Row="2" Source="{Binding Path=Thumbnail}"/>
         </Grid>
 
-        <Canvas x:Name="Design" Margin="185,116,145,35">
-            <!--<Path Fill="MidnightBlue" Stroke="Red" StrokeThickness="1" Data="M 0 0 A 150 150 0 0 0 70 70 M 90 70 A 150 150 0 0 0 20 0" Margin="0,0,0,0"/>-->
-            <!--<Path Stroke="Red" Margin="50" Data="M 46.39 35.78 A 32.27 32.27 0 1 0 65.66 76.52 h 100 v -41 z" StrokeStartLineCap="Round" StrokeEndLineCap="Round" StrokeDashArray="2 2" StrokeThickness="0.5" StrokeDashCap="Square">-->
-            <!--</Path>-->
+        <Canvas x:Name="Design" Margin="180,111,150,40">
+            <!--<Path Fill="SlateGray" Stroke="Black" StrokeThickness="1" Margin="50" Data="m0,0 h750 v300 h-750 z">
+            </Path>-->
             <ContentPresenter Content="{Binding Design}"/>
         </Canvas>
         <Grid Margin="0" Height="40" VerticalAlignment="Bottom">
@@ -302,7 +302,7 @@
             <Path x:Name="cmd_move" Fill="{x:Null}" Stroke="White" StrokeThickness="2" Data="m 2 2 h 25 v 25 h-25 z m 5 22 v -15 l 07 8.5 l 7 -8.5 v 15" Margin="5,5,0,0"/>
             <Path x:Name="cmd_colisao" Fill="{x:Null}" Stroke="White" StrokeThickness="2" Data="m 2 2 h 25 v 25 h-25 z m 7 21.5 h 7 a 4.5 4.55 180 1 0 0 -9  h -0 h 0.1 a 4.5 4.5 180 1 0 0 -9 h -7 z" Margin="42,5,0,0"/>
             <Path x:Name="cmd_copiar" Fill="{x:Null}" Stroke="White" StrokeThickness="2" Data="m 2 2 h 25 v 25 h-25 z m 19 19 a 8 8 180 1 1 0 -12" Margin="79,5,0,0"/>
-            <Button x:Name="btn_auto" Content="Auto" HorizontalAlignment="Left" Margin="122,6,0,0" VerticalAlignment="Top" Width="122" Height="27" Background="{x:Null}" BorderBrush="White" Foreground="White" Click="btn_auto_Click" RenderTransformOrigin="0,0" BorderThickness="2" FontWeight="Bold" FontSize="16"/>
+            <Button x:Name="btn_print" Content="Print" HorizontalAlignment="Left" Margin="122,6,0,0" VerticalAlignment="Top" Width="122" Height="27" Background="{x:Null}" BorderBrush="White" Foreground="White" Click="btn_print_Click" RenderTransformOrigin="0,0" BorderThickness="2" FontWeight="Bold" FontSize="16"/>
 
         </Grid>
         <DockPanel LastChildFill="False" Margin="0,111,0,40" Width="150" HorizontalAlignment="Right">

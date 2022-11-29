@@ -26,11 +26,11 @@ namespace GuilhotiNest.ViewModel
         public ObservableCollection<Occurrences> Occs { get; set; }
         public System.Windows.Media.Imaging.BitmapFrame Thumbnail { get; set; }
 
-        public Document(string nome, string material, string cmd, double esp = 0, double dim_x = 0, double dim_y = 0, double area = 0, int ord = 000000, int qtde = 1)
+        public Document(string nome, string material, PathGeometry cmd, double esp = 0, double dim_x = 0, double dim_y = 0, double area = 0, int ord = 000000, int qtde = 1)
         {
             Nome = nome;
             Material = material;
-            Geometria = cmd;
+            Geometria = cmd.ToString();
             Espessura = esp;
             DimensaoH = dim_x;
             DimensaoV = dim_y;

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,8 +32,9 @@ namespace GuilhotiNest
         {
             if (Mover && Occ_Ativo != null && Colisao == true)
             {
-                Occ_Ativo.Mover_Colisao(e.GetPosition(Design),Layout_Ativo.Retalho, new List<Occurrences>(Layout_Ativo.Occs));
-            }else if (Mover && Occ_Ativo != null && Colisao == false)
+                Occ_Ativo.Mover_Colisao(e.GetPosition(Design),Layout_Ativo.Retalho);
+            }
+            else if (Mover && Occ_Ativo != null && Colisao == false)
             {               
                 Occ_Ativo.Mover(e.GetPosition(Design));
             }
@@ -45,12 +47,22 @@ namespace GuilhotiNest
                 {
                     Occ_Ativo.Limites = Occ_Ativo.Design.Data.GetRenderBounds(new Pen());
                     Layout_Ativo.Retalho = Geometry.Combine(Layout_Ativo.Retalho, Occ_Ativo.Design.Data, GeometryCombineMode.Exclude, null);
-                    Occ_Ativo = null;
+                    Cortes cor = new Cortes(Occ_Ativo.Design.Data.Bounds.Right, Cortes.Orientacao.Vertical, Layout_Ativo);
+                    Cortes cor2 = new Cortes(Occ_Ativo.Design.Data.Bounds.Top, Cortes.Orientacao.Horizontal, Layout_Ativo);
+                    Layout_Ativo.Limites.Add(cor); Layout_Ativo.Limites.Add(cor2);
+                    Occ_Ativo.Cortes.Add(cor); Occ_Ativo.Cortes.Add(cor2);
+                    Design.Children.Add(cor.Design); Design.Children.Add(cor2.Design);
+                    Occ_Ativo = null; Mover = false;
                 }
                 else if (Occ_Ativo == null && Mover == true && ((Path)e.Source).Tag.GetType() == typeof(Occurrences))
                 {
                     Occ_Ativo = (Occurrences)((Path)e.Source).Tag;
                     Layout_Ativo.Retalho = Geometry.Combine(Layout_Ativo.Retalho, Occ_Ativo.Design.Data, GeometryCombineMode.Union, null);
+                    Design.Children.Remove(Occ_Ativo.Cortes[0].Design);
+                    Design.Children.Remove(Occ_Ativo.Cortes[1].Design);
+                    Layout_Ativo.Limites.Remove(Occ_Ativo.Cortes[0]);
+                    Layout_Ativo.Limites.Remove(Occ_Ativo.Cortes[1]);
+                    Occ_Ativo.Cortes.Clear();
                 }
                 else if (Occ_Ativo == null && Copiar && ((Path)e.Source).Tag.GetType() == typeof(Occurrences))
                 {
@@ -71,6 +83,13 @@ namespace GuilhotiNest
         }
         private void btn_import_inventor_Click(object sender, RoutedEventArgs e)
         {
+            //string valor = "Teste";
+            //var res = ToBinaryString(Encoding.UTF8, valor);
+
+            //string valor2 = "Teste2";
+            //var res2 = ToBinaryString(Encoding.UTF8, valor2);
+
+            //MessageBox.Show(res +'\n'+res2 );
             Microsoft.Win32.OpenFileDialog DialogOpen = new Microsoft.Win32.OpenFileDialog();
             DialogOpen.Multiselect = false;
             DialogOpen.FileName = string.Empty;
@@ -80,6 +99,10 @@ namespace GuilhotiNest
             Controle.Importar_Inventor(DialogOpen.FileName, arvore);
             arvore.ItemsSource = null;
             arvore.ItemsSource = Controle.Tree;
+        }
+        static string ToBinaryString(Encoding encoding, string text)
+        {
+            return string.Join("", encoding.GetBytes(text).Select(n => Convert.ToString(n, 2).PadLeft(8, '0')));
         }
         private void frm_Principal_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -255,6 +278,22 @@ namespace GuilhotiNest
             }
             
 
+        }
+
+        private void btn_print_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog prnt = new PrintDialog();
+            if (prnt.ShowDialog() == true)
+            {
+                //Size pageSize = new Size(prnt.PrintableAreaWidth, prnt.PrintableAreaHeight);
+                //Design.Measure(pageSize);
+                //Design.Arrange(new Rect(5, 5, pageSize.Width, pageSize.Height));
+                
+                prnt.PrintQueue = System.Printing.LocalPrintServer.GetDefaultPrintQueue();
+                prnt.PrintTicket.PageOrientation = System.Printing.PageOrientation.Landscape;
+                prnt.PrintVisual(Design, "Printing Canvas");
+
+            }
         }
     }
 }

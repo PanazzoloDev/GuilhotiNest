@@ -22,12 +22,13 @@ namespace GuilhotiNest.ViewModel
         public Geometry Data { get; set; }
         public Tarefa Parent { get; set; }
         public ObservableCollection<Occurrences> Occs { get; set; }
+        public ObservableCollection<Cortes> Limites { get; set; }
         public Path Design { get; set; }
         public Geometry Retalho { get; set; }
 
         private TransformGroup _Trans_Group;
         private TranslateTransform _Translate;
-        //private RotateTransform _Rotate;
+        private RotateTransform _Rotate;
         private ScaleTransform _Scale;
 
         public Layout(int id, double[] dim, string cmd, Tarefa pai, int rep = 1)
@@ -37,12 +38,13 @@ namespace GuilhotiNest.ViewModel
             Repeticoes = rep;
             Data = Geometry.Parse(cmd).Clone();
 
-            Data.Transform = Aplicar_Transformacoes(dim);
-
             Criar_Design();
-            Occs = new ObservableCollection<Occurrences>();
+            Design.Data.Transform = Aplicar_Transformacoes(dim);
 
+            Occs = new ObservableCollection<Occurrences>();
+            Limites = new ObservableCollection<Cortes>();
             Retalho = this.Data.Clone();
+
         }
         public void Alterar_Context(Canvas Design)
         {
@@ -57,9 +59,9 @@ namespace GuilhotiNest.ViewModel
         {
             Design = new Path()
             {
-                Fill = Brushes.DodgerBlue,
-                Stroke = Brushes.AliceBlue,
-                StrokeThickness = 2,
+                Fill = Brushes.SlateGray,
+                Stroke = Brushes.MidnightBlue,
+                StrokeThickness = 1,
                 Data = this.Data
             };
         }

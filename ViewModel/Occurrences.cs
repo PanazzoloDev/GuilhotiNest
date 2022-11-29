@@ -22,6 +22,7 @@ namespace GuilhotiNest.ViewModel
         public Layout layout { get; set; }
         public System.Windows.Rect Limites { get; set; }
 
+        public List<Cortes> Cortes {get;set;}
         private TransformGroup _Trans_Group;
         private ScaleTransform _Scale;
         private TranslateTransform _Translate;
@@ -29,6 +30,7 @@ namespace GuilhotiNest.ViewModel
         //Construtor
         public Occurrences(Document Pai, Layout layout,double[] Dim_Layout)
         {
+            Cortes = new List<ViewModel.Cortes>();
             this.Parent = Pai;
             this.layout = layout;
             this.Arranjado = true;
@@ -42,17 +44,10 @@ namespace GuilhotiNest.ViewModel
             this.Design.Tag = this;
         }
         //Métodos publicos
-        public void Mover_Colisao(System.Windows.Point pt, Geometry layout,List<Occurrences> Occs)
+        public void Mover_Colisao(System.Windows.Point pt, Geometry layout)
         {
             double x_antigo = _Translate.X;
             double y_antigo = _Translate.Y;
-
-            //System.Windows.Point novo = FindEquivalente(mouse, Occs);
-            //System.Windows.Point pt;
-            //if (novo.X == 0 && novo.Y == 0)
-            //{pt = mouse;}
-            //else
-            //{pt = novo;}
 
             _Translate.X = pt.X - (this.Comprimento / 2);
             if (Interno(layout) == true)
@@ -82,8 +77,8 @@ namespace GuilhotiNest.ViewModel
         {
             Design = new Path()
             {
-                Fill = Brushes.MidnightBlue,
-                Stroke = Brushes.Red,
+                Fill = Brushes.SteelBlue,
+                Stroke = Brushes.MidnightBlue,
                 StrokeThickness = 1,
                 Data = this.Data,
                 Cursor = System.Windows.Input.Cursors.Hand
@@ -148,7 +143,8 @@ namespace GuilhotiNest.ViewModel
         private bool Interno(Geometry layout)
         {
             IntersectionDetail resultado = layout.FillContainsWithDetail(this.Design.Data);
-            if (resultado == IntersectionDetail.FullyContains) return false;
+            //IntersectionDetail resultado = layout.FillContainsWithDetail(this.Design.RenderedGeometry);
+            if (resultado == IntersectionDetail.FullyContains || resultado == IntersectionDetail.Empty) return false;
             return true;
         }
     }
