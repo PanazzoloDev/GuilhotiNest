@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GuilhotiNest.ViewModel"
         mc:Ignorable="d"
-        Title="GuilhotiNest v01" Height="842" Width="1200" MouseMove="frm_Principal_MouseMove" MouseLeftButtonDown="frm_Principal_MouseLeftButtonDown" Foreground="{x:Null}" WindowState="Maximized" MouseLeftButtonUp="frm_Principal_MouseLeftButtonUp" MouseWheel="frm_Principal_MouseWheel" KeyDown="frm_Principal_KeyDown">
+        Title="GuilhotiNest v01" Height="842" Width="1200" MouseMove="frm_Principal_MouseMove" MouseLeftButtonDown="frm_Principal_MouseLeftButtonDown" Foreground="{x:Null}" WindowState="Maximized" KeyDown="frm_Principal_KeyDown">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF3E3E3E" Offset="1"/>
@@ -237,7 +237,7 @@
                 <RowDefinition Height="135*"/>
                 <RowDefinition Height="229*"/>
             </Grid.RowDefinitions>
-            <TreeView x:Name="arvore" Background="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2,2,2,4" SelectedItemChanged="arvore_SelectedItemChanged" MouseDoubleClick="arvore_MouseDoubleClick" BorderBrush="White" Width="172" Grid.Column="0" Foreground="White">
+            <TreeView x:Name="arvore" Background="{x:Null}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="2,2,2,4" SelectedItemChanged="arvore_SelectedItemChanged" BorderBrush="White" Width="172" Grid.Column="0" Foreground="White">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type local:Grupo}" ItemsSource="{Binding Documents}">
                         <StackPanel Orientation="Horizontal">

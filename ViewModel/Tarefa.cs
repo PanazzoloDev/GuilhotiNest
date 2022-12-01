@@ -12,7 +12,7 @@ namespace GuilhotiNest.ViewModel
     {
         public string Nome { get; set; } = "TaskDefault";
         public string Material { get; set; }
-      
+        
 
         public double Espessura { get; set; }
 
@@ -24,7 +24,7 @@ namespace GuilhotiNest.ViewModel
             Nome = nome;
             Espessura = esp;
             
-            Layouts.Add(new Layout(01, dim, "m 0 0 h 3000 v 1200 h -3000 z", this));
+            Layouts.Add(new Layout(01, dim, "m 0 0 h 1350 v 750 h -1350 z", this));
         }
     }
 }

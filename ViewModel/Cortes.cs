@@ -24,32 +24,68 @@ namespace GuilhotiNest.ViewModel
             Orientação = orient;
             CriarDesign(med);
         }
-        public void CriarDesign(double med)
+        public Cortes(double med, Orientacao orient, Layout pai, double[] Range)
         {
-            if(Orientação == Orientacao.Horizontal)
+            Parent = pai;
+            Medida = med;
+            Orientação = orient;
+            CriarDesign(med, Range);
+        }
+        public void CriarDesign(double med, double[] Range = null)
+        {
+            if(Range == null)
             {
-                Design = new Line()
+                if (Orientação == Orientacao.Horizontal)
                 {
-                    Stroke = Brushes.Red,
-                    StrokeThickness = 1,
-                    X1 = Parent.Design.Data.Bounds.Left,
-                    X2 = Parent.Design.Data.Bounds.Right,
-                    Y1 = med, 
-                    Y2 = med
-                };
-
+                    Design = new Line()
+                    {
+                        Stroke = Brushes.Red,
+                        StrokeThickness = 1,
+                        X1 = Parent.Design.Data.Bounds.Left,
+                        X2 = Parent.Design.Data.Bounds.Right,
+                        Y1 = med,
+                        Y2 = med
+                    };
+                }
+                else
+                {
+                    Design = new Line()
+                    {
+                        Stroke = Brushes.Red,
+                        StrokeThickness = 1,
+                        X1 = med,
+                        X2 = med,
+                        Y1 = Parent.Design.Data.Bounds.Top,
+                        Y2 = Parent.Design.Data.Bounds.Bottom
+                    };
+                }
             }
             else
             {
-                Design = new Line()
+                if (Orientação == Orientacao.Horizontal)
                 {
-                    Stroke = Brushes.Red,
-                    StrokeThickness = 1,
-                    X1 = med,
-                    X2 = med,
-                    Y1 = Parent.Design.Data.Bounds.Top,
-                    Y2 = Parent.Design.Data.Bounds.Bottom
-                };
+                    Design = new Line()
+                    {
+                        Stroke = Brushes.Red,
+                        StrokeThickness = 1,
+                        X1 = Range[0],
+                        X2 = Range[1],
+                        Y1 = med,
+                        Y2 = med
+                    };
+                }
+                else
+                {
+                    Design = new Line()
+                    {
+                        Stroke = Brushes.Red,
+                        StrokeThickness = 1,
+                        X1 = med,
+                        X2 = med,
+                        Y1 = Range[0],
+                        Y2 = Range[1]
+                    };
+                }
             }
         }
     }

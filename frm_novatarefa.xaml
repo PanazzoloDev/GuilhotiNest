@@ -69,6 +69,6 @@
         <Label x:Name="label_Copy" Content="Material" HorizontalAlignment="Left" Margin="382,282,0,0" VerticalAlignment="Top" Padding="1.1,0,0,0" Foreground="White"/>
         <TextBox x:Name="txt_nome_task" HorizontalAlignment="Left" Height="21" Margin="382,257,0,0" TextWrapping="Wrap" Text="Default" VerticalAlignment="Top" Width="133" Background="White" Foreground="Black" BorderBrush="#FF828282" Padding="3,1,0,0"/>
         <Label x:Name="label_Copy1" Content="Nome" HorizontalAlignment="Left" Margin="382,241,0,0" VerticalAlignment="Top" Padding="1.1,0,0,0" Foreground="White"/>
-        <Button x:Name="btn_criar_tarefa" Content="Concluído" HorizontalAlignment="Left" Margin="590,293,0,0" VerticalAlignment="Top" Width="130" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="30.6" UseLayoutRounding="False" Click="btn_criar_tarefa_Click"/>
+        <Button x:Name="btn_criar_tarefa" Content="Concluído" HorizontalAlignment="Left" Margin="590,292.5,0,0" VerticalAlignment="Top" Width="130" Background="{x:Null}" Foreground="White" BorderBrush="White" Height="30.6" UseLayoutRounding="False" Click="btn_criar_tarefa_Click"/>
     </Grid>
 </Window>

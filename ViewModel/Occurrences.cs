@@ -27,6 +27,8 @@ namespace GuilhotiNest.ViewModel
         private ScaleTransform _Scale;
         private TranslateTransform _Translate;
         private RotateTransform _Rotate;
+
+        private TransformGroup _BackupTransformacao { get; set; }
         //Construtor
         public Occurrences(Document Pai, Layout layout,double[] Dim_Layout)
         {
@@ -44,6 +46,10 @@ namespace GuilhotiNest.ViewModel
             this.Design.Tag = this;
         }
         //Métodos publicos
+        public void Nova_Occ()
+        {
+
+        }
         public void Mover_Colisao(System.Windows.Point pt, Geometry layout)
         {
             double x_antigo = _Translate.X;
@@ -77,7 +83,7 @@ namespace GuilhotiNest.ViewModel
         {
             Design = new Path()
             {
-                Fill = Brushes.SteelBlue,
+                Fill = Brushes.White,
                 Stroke = Brushes.MidnightBlue,
                 StrokeThickness = 1,
                 Data = this.Data,
@@ -86,14 +92,12 @@ namespace GuilhotiNest.ViewModel
         }
         private void Aplicar_Transformacoes(double[] dim_layout)
         {
-            this.Escala = (new[] { ((dim_layout[0] * .9) / 3000), ((dim_layout[1] * 0.8) / 1200) }).Min();
-            double offset_y = (dim_layout[1] * 0.1);
-            double offset_x = (dim_layout[0] * 0.05);
+            this.Escala = layout.Escala;
 
             this._Trans_Group = new TransformGroup();
             _Scale = new ScaleTransform(this.Escala, this.Escala);
-            _Translate = new TranslateTransform((layout.Comprimento/2)*layout.Escala, (layout.Altura / 2) * layout.Escala);
-            _Rotate = new RotateTransform(0, (this.Comprimento / 2), (this.Altura / 2));
+            _Translate = new TranslateTransform();
+            _Rotate = new RotateTransform();
 
             _Trans_Group.Children.Add(_Scale);
             _Trans_Group.Children.Add(_Rotate);
@@ -142,10 +146,21 @@ namespace GuilhotiNest.ViewModel
         }
         private bool Interno(Geometry layout)
         {
-            IntersectionDetail resultado = layout.FillContainsWithDetail(this.Design.Data);
+            IntersectionDetail resultado = layout.FillContainsWithDetail(this.Data);
             //IntersectionDetail resultado = layout.FillContainsWithDetail(this.Design.RenderedGeometry);
             if (resultado == IntersectionDetail.FullyContains || resultado == IntersectionDetail.Empty) return false;
             return true;
         }
+        public void SalvarPosicao()
+        {
+            _BackupTransformacao = _Trans_Group.Clone();
+        }
+        //public void Ultima_Posicao()
+        //{
+        //    //_Scale = (ScaleTransform)_BackupTransformacao.Children[0].Clone();
+        //    //_Rotate = (RotateTransform)_BackupTransformacao.Children[1].Clone();
+        //    //_Translate = (TranslateTransform)_BackupTransformacao.Children[2].Clone();
+
+        //}
     }
 }

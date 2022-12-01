@@ -17,6 +17,10 @@ namespace GuilhotiNest.ViewModel
         public static ObservableCollection<Tarefa> Tarefas { get; set; } = new ObservableCollection<Tarefa>();
         public static ObservableCollection<Document> Documentos { get; set; } = new ObservableCollection<Document>();
 
+        public static Layout Layout_Ativo { get; set; }
+        public static Occurrences ActiveOcc { get; set; }
+        public static Canvas Design { get; set; }
+
         public static void Importar_Inventor(string caminho, TreeView tree)
         {
             InventorApp Inv = new InventorApp();
@@ -79,7 +83,47 @@ namespace GuilhotiNest.ViewModel
                 grp.Documents.Add(item);
             }
         }
-
+        public static void Arranjar()
+        {
+            ActiveOcc.Limites = ActiveOcc.Design.Data.GetRenderBounds(new Pen());
+            Layout_Ativo.Retalho = Geometry.Combine(Layout_Ativo.Retalho, ActiveOcc.Design.Data, GeometryCombineMode.Exclude, null);
+            List<Cortes> list = new List<Cortes>()
+            {
+                new Cortes(ActiveOcc.Design.Data.Bounds.Right, Cortes.Orientacao.Vertical, Layout_Ativo),
+                new Cortes(ActiveOcc.Design.Data.Bounds.Top, Cortes.Orientacao.Horizontal, Layout_Ativo)
+            };
+            foreach (var cor in list)
+            {
+                Design.Children.Add(cor.Design);
+                Layout_Ativo.Limites.Add(cor);
+                ActiveOcc.Cortes.Add(cor);
+            }
+            ActiveOcc = null;
+        }
+        public static void StartMove(Occurrences Occ)
+        {
+            ActiveOcc = Occ;
+            Layout_Ativo.Retalho = Geometry.Combine(Layout_Ativo.Retalho, ActiveOcc.Design.Data, GeometryCombineMode.Union, null);
+            foreach (var cor in ActiveOcc.Cortes)
+            {
+                Design.Children.Remove(cor.Design);
+                Layout_Ativo.Limites.Remove(cor);
+            }
+            ActiveOcc.Cortes.Clear();
+        }
+        public static void DeleteOcc()
+        {
+            Layout_Ativo.Retalho = Geometry.Combine(Layout_Ativo.Retalho, ActiveOcc.Design.Data, GeometryCombineMode.Union, null);
+            Design.Children.Remove(ActiveOcc.Design);
+            foreach (var cor in ActiveOcc.Cortes)
+            {
+                Design.Children.Remove(cor.Design);
+                Layout_Ativo.Limites.Remove(cor);
+            }
+            ActiveOcc.Cortes.Clear();
+            Layout_Ativo.Occs.Remove(ActiveOcc);
+            ActiveOcc.Parent.Occs.Remove(ActiveOcc);
+        }
     }
 }
 

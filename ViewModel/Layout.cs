@@ -67,7 +67,7 @@ namespace GuilhotiNest.ViewModel
         }
         private TransformGroup Aplicar_Transformacoes(double[] dim)
         {
-            this.Escala = (new[] { ((dim[0] * 0.95) / 3000), ((dim[1] * 0.8) / 1200) }).Min();
+            this.Escala = (new[] { ((dim[0] * 0.95) / Data.Bounds.Width), ((dim[1] * 0.8) / Data.Bounds.Height) }).Min();
             double offset_y = (dim[0] * 0.1);
             double offset_x = (dim[1] * 0.025);
 
@@ -77,7 +77,9 @@ namespace GuilhotiNest.ViewModel
 
             _Trans_Group.Children.Add(_Scale);
             _Trans_Group.Children.Add(_Translate);
+            
             return _Trans_Group;
         }
+
     }
 }
