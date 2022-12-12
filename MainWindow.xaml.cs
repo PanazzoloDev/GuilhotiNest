@@ -65,7 +65,6 @@ namespace GuilhotiNest
             {
 
             }
-
         }
         private void btn_import_inventor_Click(object sender, RoutedEventArgs e)
         {
@@ -95,6 +94,11 @@ namespace GuilhotiNest
                     Controle.Layout_Ativo = (Layout)e.NewValue;
                     Controle.Layout_Ativo.Alterar_Context(Design);
                     Itens_Tarefa.DataContext = Controle.Layout_Ativo.Parent;
+                }
+                else if (e.NewValue.GetType() == typeof(Document))
+                {
+                    //var doc = (Document)e.NewValue;
+                    //img.Source = doc.Thumbnail;
                 }
                 else
                 {
@@ -162,7 +166,7 @@ namespace GuilhotiNest
         }
         private void btn_nova_tarefa_Click(object sender, RoutedEventArgs e)
         {
-            if (Controle.Grupos.Count == 0) { MessageBox.Show("Não é permitido a criação de tarefas vazias.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning); return;}
+            if (Controle.Tree.Count == 0) { MessageBox.Show("Não é permitido a criação de tarefas vazias.", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning); return;}
             Tarefa task = new Tarefa("SAE 1020", 2.65, new[] {Design.ActualWidth,Design.ActualHeight});
             frm_novatarefa frm = new frm_novatarefa(ref task);
             frm.ShowDialog();
@@ -250,6 +254,21 @@ namespace GuilhotiNest
                 prnt.PrintVisual(Design, "Printing Canvas");
                 Controle.Layout_Ativo.Design.Fill = Brushes.SlateGray;
             }
+        }
+
+        private void btn_Salvar_Click(object sender, RoutedEventArgs e)
+        {
+            //Controle.Salvar_WorksSpace();
+        }
+        private void btn_Abrir_Click(object sender, RoutedEventArgs e)
+        {
+            //Microsoft.Win32.OpenFileDialog DialogOpen = new Microsoft.Win32.OpenFileDialog();
+            //DialogOpen.Multiselect = false;
+            //DialogOpen.FileName = string.Empty;
+            //if (DialogOpen.ShowDialog() != true) return;
+            //Controle.AbrirWorkspace(DialogOpen.FileName);
+            //arvore.ItemsSource = null;
+            //arvore.ItemsSource = Controle.Tree;
         }
     }
 }

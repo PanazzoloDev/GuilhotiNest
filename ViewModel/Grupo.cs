@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Grupo
     {
         public string Material { get; set; }

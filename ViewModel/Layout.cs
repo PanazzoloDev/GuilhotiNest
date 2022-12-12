@@ -10,6 +10,7 @@ using System.Windows.Shapes;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Layout
     {
         public int Número { get; set; }

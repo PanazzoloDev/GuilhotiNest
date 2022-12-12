@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Document
     {
         public string Nome { get; set; }
@@ -24,7 +25,8 @@ namespace GuilhotiNest.ViewModel
         public int Quantidade { get; set; } = 1;
 
         public ObservableCollection<Occurrences> Occs { get; set; }
-        public System.Windows.Media.Imaging.BitmapFrame Thumbnail { get; set; }
+        //[field: NonSerialized()]
+        public BitmapFrame Thumbnail { get; set; }
 
         public Document(string nome, string material, PathGeometry cmd, double esp = 0, double dim_x = 0, double dim_y = 0, double area = 0, int ord = 000000, int qtde = 1)
         {
@@ -37,7 +39,7 @@ namespace GuilhotiNest.ViewModel
             Area = area;
             Ordem = ord;
             Quantidade = qtde;
-            Thumbnail = Criar_Thumbnail(System.Windows.Media.Geometry.Parse(Geometria));
+            Thumbnail = Criar_Thumbnail();
             Occs = new ObservableCollection<Occurrences>();
             //Occs = Criar_Occurrences(this);
         }
@@ -57,8 +59,9 @@ namespace GuilhotiNest.ViewModel
             return occ;        
         }
 
-        private static BitmapFrame Criar_Thumbnail(Geometry geo)
+        public BitmapFrame Criar_Thumbnail()
         {
+            Geometry geo = Geometry.Parse(Geometria);
             RenderTargetBitmap renderBitmap = new RenderTargetBitmap((int)Math.Round((geo.Bounds.Width + 20) * 1.5625, 0), (int)Math.Round((geo.Bounds.Height + 20) * 1.5625, 0), 150, 150, PixelFormats.Pbgra32);
             DrawingVisual drawingVisual = new DrawingVisual();
             DrawingContext drawingContext = drawingVisual.RenderOpen();

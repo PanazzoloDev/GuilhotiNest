@@ -9,6 +9,7 @@ using System.Windows.Shapes;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Occurrences
     {
         public bool Arranjado { get; set; } = false;
@@ -16,9 +17,11 @@ namespace GuilhotiNest.ViewModel
         public double Comprimento { get; set; }
         public double Escala { get; set; } = 1;
 
-        public Geometry Data { get; set; }
+        //[field: NonSerialized()]
+        public Geometry Data;// { get; set; }
         public Document Parent { get; set; }
-        public Path Design { get; set; }
+        //[field: NonSerialized()]
+        public Path Design;// { get; set; }
         public Layout layout { get; set; }
         public System.Windows.Rect Limites { get; set; }
 
@@ -55,17 +58,48 @@ namespace GuilhotiNest.ViewModel
             double x_antigo = _Translate.X;
             double y_antigo = _Translate.Y;
 
-            _Translate.X = pt.X - (this.Comprimento / 2);
-            if (Interno(layout) == true)
+            double x = 1000;
+            double y = 1000;
+
+            System.Windows.Point sup_esq = new System.Windows.Point(pt.X - (this.Comprimento / 2), pt.Y - (this.Altura / 2));
+            System.Windows.Point inf_dir = new System.Windows.Point(sup_esq.X + this.Comprimento, sup_esq.Y + this.Altura);
+
+            var CortesLayout = Controle.Layout_Ativo.Limites;
+            List<Parametros> verticais = new List<Parametros>();
+            List<Parametros> horizontais = new List<Parametros>();
+
+            if (CortesLayout.Count != 0)
             {
-                _Translate.X = x_antigo;
+                foreach (Cortes corte in CortesLayout)
+                {
+                    if (corte.Orientação == ViewModel.Cortes.Orientacao.Vertical)
+                    {
+                        verticais.Add(new Parametros() { Corte = corte, Diferenca = Math.Abs(sup_esq.X - corte.Medida), Somar = false });
+                        verticais.Add(new Parametros() { Corte = corte, Diferenca = Math.Abs(inf_dir.X - corte.Medida), Somar = true });
+                    }
+                    else
+                    {
+                        horizontais.Add(new Parametros() { Corte = corte, Diferenca = Math.Abs(sup_esq.Y - corte.Medida), Somar = false });
+                        horizontais.Add(new Parametros() { Corte = corte, Diferenca = Math.Abs(inf_dir.Y - corte.Medida), Somar = true });
+                    }
+                }
+                var vert = verticais.OrderBy(X => X.Diferenca).ToList()[0];
+                var hor = horizontais.OrderBy(Y => Y.Diferenca).ToList()[0];
+
+                if (vert.Somar) { x = vert.Corte.Medida - this.Comprimento; } else { x = vert.Corte.Medida; }
+                if (hor.Somar) { y = hor.Corte.Medida - this.Altura; } else { y = hor.Corte.Medida; }
+            }
+            else
+            {
+                x = sup_esq.X;
+                y = sup_esq.Y;
             }
 
-            _Translate.Y = pt.Y - (this.Altura / 2);
-            if (Interno(layout) == true)
-            {
-                _Translate.Y = y_antigo;
-            }
+            _Translate.X = x;
+            //if (Interno(layout) == true){_Translate.X = x_antigo;}
+
+            _Translate.Y = y;
+            //if (Interno(layout) == true){_Translate.Y = y_antigo;}
         }
         public void Mover(System.Windows.Point mouse)
         {
@@ -155,12 +189,17 @@ namespace GuilhotiNest.ViewModel
         {
             _BackupTransformacao = _Trans_Group.Clone();
         }
-        //public void Ultima_Posicao()
-        //{
-        //    //_Scale = (ScaleTransform)_BackupTransformacao.Children[0].Clone();
-        //    //_Rotate = (RotateTransform)_BackupTransformacao.Children[1].Clone();
-        //    //_Translate = (TranslateTransform)_BackupTransformacao.Children[2].Clone();
+        public void Ultima_Posicao()
+        {
+            _Rotate = (RotateTransform)_BackupTransformacao.Children[1].Clone();
+            _Translate = (TranslateTransform)_BackupTransformacao.Children[2].Clone();
+        }
 
-        //}
+        private class Parametros
+        {
+            public Cortes Corte { get; set; }
+            public double Diferenca { get; set; }
+            public bool Somar { get; set; }
+        }
     }
 }

@@ -16,10 +16,10 @@
     <Grid Margin="0" ShowGridLines="False" RenderTransformOrigin="0,0">
         <DockPanel Height="111" VerticalAlignment="Top">
             <DockPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FF002A34" Offset="0.964"/>
-                    <GradientStop Color="#FF054149"/>
-                    <GradientStop Color="#FF006F7C" Offset="0.709"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF272555" Offset="0.607"/>
+                    <GradientStop Color="#FF0E0534"/>
+                    <GradientStop Color="#FF0E0534" Offset="1"/>
                 </LinearGradientBrush>
             </DockPanel.Background>
             <TabControl Background="{x:Null}" Foreground="White">
@@ -37,6 +37,7 @@
                                 <ColumnDefinition Width="60"/>
                                 <ColumnDefinition Width="15"/>
                                 <ColumnDefinition Width="60"/>
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="10"/>
@@ -45,10 +46,10 @@
                             </Grid.RowDefinitions>
                             <Button x:Name="btn_import_inventor" Grid.Column="1" Grid.Row="1" Foreground="White" BorderBrush="White" Margin="0" Click="btn_import_inventor_Click">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF054149" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -59,20 +60,23 @@
                                     </StackPanel>
                                 </Button.Content>
                             </Button>
-                            <Button Grid.Column="3" Grid.Row="1" Foreground="White" BorderBrush="White">
+                            <Button Name="btn_Salvar" Content="Salvar" Grid.Column="3" Grid.Row="1" Foreground="White" BorderBrush="White" Click="btn_Salvar_Click" Height="20" VerticalAlignment="Top">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF054149" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
-                                <Button.Content>
-                                    <StackPanel>
-                                        <!--<Image Source="Resources/Tasks1.png" Width="20" Height="20" Stretch="Fill"/>-->
-                                        <TextBlock Text="CAD" Foreground="White" FontSize="10"/>
-                                    </StackPanel>
-                                </Button.Content>
+                            </Button>
+                            <Button Name="btn_Abrir" Content="Open" Grid.Column="3" Grid.Row="1" Foreground="White" BorderBrush="White" Height="20" VerticalAlignment="Center" Click="btn_Abrir_Click">
+                                <Button.Background>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Button.Background>
                             </Button>
                         </Grid>
                     </TabItem.Content>
@@ -103,10 +107,10 @@
                             </Grid.RowDefinitions>
                             <Button x:Name="btn_nova_tarefa" Grid.Column="1" Grid.Row="1" Foreground="White" BorderBrush="White" Margin="0" Click="btn_nova_tarefa_Click">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF054149" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -118,10 +122,10 @@
                             </Button>
                             <Button Grid.Column="3" Grid.Row="1" Foreground="White" BorderBrush="White">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF054149" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -133,10 +137,10 @@
                             </Button>
                             <Button Grid.Column="5" Grid.Row="1" Foreground="White" BorderBrush="White" VerticalAlignment="Top" Height="28">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF08606C" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -148,10 +152,10 @@
                             </Button>
                             <Button Grid.Column="5" Grid.Row="1" Foreground="White" BorderBrush="White" VerticalAlignment="Bottom" Height="28">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF08606C" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -190,10 +194,10 @@
                             </Grid.RowDefinitions>
                             <Button Grid.Column="1" Grid.Row="1" Foreground="White" BorderBrush="White" VerticalAlignment="Top" Height="30">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF08606C" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -205,10 +209,10 @@
                             </Button>
                             <Button Grid.Column="1" Grid.Row="1" Foreground="White" BorderBrush="White" VerticalAlignment="Bottom" Height="30">
                                 <Button.Background>
-                                    <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                                        <GradientStop Color="#FF1589A4" Offset="0.609"/>
-                                        <GradientStop Color="#FF08606C" Offset="1"/>
-                                        <GradientStop Color="#FF006F7C" Offset="0.226"/>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                                        <GradientStop Color="#FF0E0534"/>
+                                        <GradientStop Color="#FF0E0534" Offset="1"/>
                                     </LinearGradientBrush>
                                 </Button.Background>
                                 <Button.Content>
@@ -225,11 +229,10 @@
         </DockPanel>
         <Grid HorizontalAlignment="Left" Margin="0,111,0,40" Width="180">
             <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FF002A34" Offset="0.036"/>
-                    <GradientStop Color="#FF049DAD" Offset="1"/>
-                    <GradientStop Color="#FF054149" Offset="0.463"/>
-                    <GradientStop Color="#FF006F7C" Offset="0.896"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                    <GradientStop Color="#FF0E0534"/>
+                    <GradientStop Color="#FF0E0534" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
@@ -286,17 +289,29 @@
         </Grid>
 
         <Canvas x:Name="Design" Margin="180,111,150,40">
-            <!--<Path Fill="SlateGray" Stroke="Black" StrokeThickness="1" Margin="50" Data="m0,0 h750 v300 h-750 z">
-            </Path>-->
+            <!--<Label Foreground="White" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <StackPanel Orientation="Vertical" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <TextBlock Foreground="White" Text="134,5" HorizontalAlignment="Center"/>
+                    <Path Stroke="White" StrokeThickness="1" Data="M 0 -10 v 40 v-30 h 190 v 30 v -40"/>
+                </StackPanel>
+            </Label>-->
+            <Line X1="10" Y1='10' Y2="30" X2="10" Stroke="White"/>
             <ContentPresenter Content="{Binding Design}"/>
         </Canvas>
         <Grid Margin="0" Height="40" VerticalAlignment="Bottom">
             <Grid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FF002A34" Offset="0.964"/>
-                    <GradientStop Color="#FF049DAD"/>
-                    <GradientStop Color="#FF054149" Offset="0.537"/>
-                    <GradientStop Color="#FF006F7C" Offset="0.104"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF2C295F" Offset="0.607"/>
+                    <GradientStop Color="#FF0E0534"/>
+                    <GradientStop Color="#FF0E0534" Offset="1"/>
                 </LinearGradientBrush>
             </Grid.Background>
             <Path x:Name="cmd_move" Fill="{x:Null}" Stroke="White" StrokeThickness="2" Data="m 2 2 h 25 v 25 h-25 z m 5 22 v -15 l 07 8.5 l 7 -8.5 v 15" Margin="5,5,0,0"/>
@@ -307,11 +322,10 @@
         </Grid>
         <DockPanel LastChildFill="False" Margin="0,111,0,40" Width="150" HorizontalAlignment="Right">
             <DockPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#FF002A34" Offset="0.036"/>
-                    <GradientStop Color="#FF049DAD" Offset="1"/>
-                    <GradientStop Color="#FF054149" Offset="0.463"/>
-                    <GradientStop Color="#FF006F7C" Offset="0.896"/>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF504BA8" Offset="0.607"/>
+                    <GradientStop Color="#FF0E0534"/>
+                    <GradientStop Color="#FF0E0534" Offset="1"/>
                 </LinearGradientBrush>
             </DockPanel.Background>
             <ListView x:Name="Itens_Tarefa" Margin="0,0,0,-0.4" Width="150" Background="{x:Null}" Foreground="Black" BorderBrush="White" BorderThickness="2,1,1,1" ItemsSource="{Binding Documents}" MouseDoubleClick="Itens_Tarefa_MouseDoubleClick">
@@ -335,10 +349,10 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="{Binding Path=Thumbnail}" Stretch="Uniform" Height="60" Width="60" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
-                                        <TextBlock Text="{Binding Path=Nome}" Grid.Column="1" Grid.Row="0" Margin="4,0,0,0" />
-                                        <TextBlock Text="{Binding Path=Quantidade}" Grid.Column="1" Grid.Row="1" Margin="4,0,0,0" />
-                                        <TextBlock Text="{Binding Path=Area}" Grid.Column="1" Grid.Row="2" Margin="4,0,0,0"/>
+                                        <Image Name="preview" Source="{Binding Path=Thumbnail}" Stretch="Uniform" Height="60" Width="60" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3"/>
+                                        <TextBlock Text="{Binding Path=Nome}" Grid.Column="1" Grid.Row="0" Margin="4,0,0,0" Foreground="White" />
+                                        <TextBlock Text="{Binding Path=Quantidade}" Grid.Column="1" Grid.Row="1" Margin="4,0,0,0" Foreground="White" />
+                                        <TextBlock Text="{Binding Path=Area}" Grid.Column="1" Grid.Row="2" Margin="4,0,0,0" Foreground="White"/>
                                     </Grid>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

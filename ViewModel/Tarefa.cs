@@ -8,6 +8,7 @@ using System.Windows;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Tarefa
     {
         public string Nome { get; set; } = "TaskDefault";

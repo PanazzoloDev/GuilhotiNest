@@ -8,12 +8,14 @@ using System.Windows.Shapes;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public class Cortes
     {
         public enum Orientacao{Vertical,Horizontal}
 
         public Layout Parent { get; set; }
-        public Line Design { get; set; }
+        [field:NonSerialized()]
+        public Line Design;// { get; set; }
         public Orientacao Orientação { get; set; }
         public double Medida { get; set; }
 

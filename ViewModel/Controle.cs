@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,9 +12,10 @@ using System.Windows.Media.Imaging;
 
 namespace GuilhotiNest.ViewModel
 {
+    [Serializable()]
     public static class Controle
     {
-        public static List<object> Tree { get; set; } = new List<object>();
+        public static ObservableCollection<object> Tree { get; set; } = new ObservableCollection<object>();
         public static ObservableCollection<Grupo> Grupos { get; set; } = new ObservableCollection<Grupo>();
         public static ObservableCollection<Tarefa> Tarefas { get; set; } = new ObservableCollection<Tarefa>();
         public static ObservableCollection<Document> Documentos { get; set; } = new ObservableCollection<Document>();
@@ -123,6 +126,35 @@ namespace GuilhotiNest.ViewModel
             ActiveOcc.Cortes.Clear();
             Layout_Ativo.Occs.Remove(ActiveOcc);
             ActiveOcc.Parent.Occs.Remove(ActiveOcc);
+        }
+        public static void Salvar_WorksSpace()
+        {
+            string destino = @"C:\Users\pcp02\Desktop\Importações\Workspace.bin";
+            Stream SaveFileStream = File.Create(destino);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(SaveFileStream, Tree);
+            SaveFileStream.Close();
+        }
+        public static void AbrirWorkspace(string caminho)
+        {
+            Stream openFileStream = File.OpenRead(caminho);
+            BinaryFormatter deserializer = new BinaryFormatter();
+            Tree = (ObservableCollection<object>)deserializer.Deserialize(openFileStream);
+            foreach(var obj in Tree)
+            {
+                if (obj.GetType() == typeof(Grupo))
+                {
+                    Grupos.Add((Grupo)obj);
+                    foreach(var doc in ((Grupo)obj).Documents)
+                    {
+                        Documentos.Add(doc);
+                        doc.Criar_Thumbnail();
+                    }
+                }
+                if (obj.GetType() == typeof(Tarefa)) { Tarefas.Add((Tarefa)obj); }
+                
+            }
+            openFileStream.Close();
         }
     }
 }
