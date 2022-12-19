@@ -9,23 +9,19 @@ using System.Windows.Media.Imaging;
 
 namespace GuilhotiNest.ViewModel
 {
-    [Serializable()]
     public class Document
     {
         public string Nome { get; set; }
         public string Material { get; set; }
         public string Geometria { get; set; }
-
         public double Espessura { get; set; }
         public double Area { get; set; } = 0;
         public double DimensaoH { get; set; } = 0;
         public double DimensaoV { get; set; } = 0;
-
         public int Ordem { get; set; } = 00000;
         public int Quantidade { get; set; } = 1;
 
         public ObservableCollection<Occurrences> Occs { get; set; }
-        //[field: NonSerialized()]
         public BitmapFrame Thumbnail { get; set; }
 
         public Document(string nome, string material, PathGeometry cmd, double esp = 0, double dim_x = 0, double dim_y = 0, double area = 0, int ord = 000000, int qtde = 1)
@@ -43,15 +39,6 @@ namespace GuilhotiNest.ViewModel
             Occs = new ObservableCollection<Occurrences>();
             //Occs = Criar_Occurrences(this);
         }
-        //private ObservableCollection<Occurrences> Criar_Occurrences(Document Reference)
-        //{
-        //    ObservableCollection<Occurrences> ocs = new ObservableCollection<Occurrences>();
-        //    for(int i = 1; i <= Reference.Quantidade; i++)
-        //    {
-        //        ocs.Add(new Occurrences(Reference));
-        //    }
-        //    return ocs;
-        //}
         public Occurrences Criar_Occurrence(double[] dim_canvas, Layout lay)
         {
             Occurrences occ = new Occurrences(this,lay, dim_canvas);

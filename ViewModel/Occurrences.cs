@@ -9,7 +9,6 @@ using System.Windows.Shapes;
 
 namespace GuilhotiNest.ViewModel
 {
-    [Serializable()]
     public class Occurrences
     {
         public bool Arranjado { get; set; } = false;
@@ -17,11 +16,9 @@ namespace GuilhotiNest.ViewModel
         public double Comprimento { get; set; }
         public double Escala { get; set; } = 1;
 
-        //[field: NonSerialized()]
-        public Geometry Data;// { get; set; }
+        public Geometry Data { get; set; }
         public Document Parent { get; set; }
-        //[field: NonSerialized()]
-        public Path Design;// { get; set; }
+        public Path Design { get; set; }
         public Layout layout { get; set; }
         public System.Windows.Rect Limites { get; set; }
 
@@ -42,13 +39,13 @@ namespace GuilhotiNest.ViewModel
             this.Data = Geometry.Parse(Pai.Geometria).Clone();
             Criar_Design();
             Aplicar_Transformacoes(Dim_Layout);
-
-            this.Altura = this.Data.Bounds.Height;
-            this.Comprimento = this.Data.Bounds.Width;
+            this.Altura = this.Design.Data.Bounds.Height;
+            this.Comprimento = this.Design.Data.Bounds.Width;
             layout.Occs.Add(this);
             this.Design.Tag = this;
         }
-        //Métodos publicos
+
+        //Métodos Publicos
         public void Nova_Occ()
         {
 
@@ -58,8 +55,8 @@ namespace GuilhotiNest.ViewModel
             double x_antigo = _Translate.X;
             double y_antigo = _Translate.Y;
 
-            double x = 1000;
-            double y = 1000;
+            double x = 0;
+            double y = 0;
 
             System.Windows.Point sup_esq = new System.Windows.Point(pt.X - (this.Comprimento / 2), pt.Y - (this.Altura / 2));
             System.Windows.Point inf_dir = new System.Windows.Point(sup_esq.X + this.Comprimento, sup_esq.Y + this.Altura);
@@ -86,20 +83,24 @@ namespace GuilhotiNest.ViewModel
                 var vert = verticais.OrderBy(X => X.Diferenca).ToList()[0];
                 var hor = horizontais.OrderBy(Y => Y.Diferenca).ToList()[0];
 
-                if (vert.Somar) { x = vert.Corte.Medida - this.Comprimento; } else { x = vert.Corte.Medida; }
-                if (hor.Somar) { y = hor.Corte.Medida - this.Altura; } else { y = hor.Corte.Medida; }
+                if (vert.Somar) { x = vert.Corte.Medida - this.Design.Data.Bounds.Width; } else { x = vert.Corte.Medida; }
+                if (hor.Somar) { y = hor.Corte.Medida - this.Design.Data.Bounds.Height; } else { y = hor.Corte.Medida; }
+                _Translate.X = x;
+                _Translate.Y = y;
             }
             else
             {
                 x = sup_esq.X;
                 y = sup_esq.Y;
+
+                _Translate.X = x;
+                if (Interno(layout) == true) { _Translate.X = x_antigo; }
+
+                _Translate.Y = y;
+                if (Interno(layout) == true) { _Translate.Y = y_antigo; }
             }
 
-            _Translate.X = x;
-            //if (Interno(layout) == true){_Translate.X = x_antigo;}
 
-            _Translate.Y = y;
-            //if (Interno(layout) == true){_Translate.Y = y_antigo;}
         }
         public void Mover(System.Windows.Point mouse)
         {
@@ -108,11 +109,13 @@ namespace GuilhotiNest.ViewModel
         }
         public void Rotate(int angulo)
         {
-            _Rotate.CenterX = (this.Comprimento / 2);
-            _Rotate.CenterY = (this.Altura / 2);
+            _Rotate.CenterX = (this.Comprimento/2);
+            _Rotate.CenterY = (this.Altura/2);
             _Rotate.Angle = _Rotate.Angle + angulo;
+            this.Design.UpdateLayout();
         }
 
+        //Métodos Privados
         private void Criar_Design()
         {
             Design = new Path()
@@ -139,45 +142,6 @@ namespace GuilhotiNest.ViewModel
 
             Design.Data.Transform = _Trans_Group;
         }
-        private System.Windows.Point FindEquivalente(System.Windows.Point pt, List<Occurrences> Arranjados)
-        {
-            
-            List<double[]> Xs = new List<double[]>();
-            List<double[]> Ys = new List<double[]>();
-
-            for (int i = 0; i <  Arranjados.Count; i ++)
-            {
-                if (Arranjados[i] == this) continue;
-                Ys.Add(new double[2] { Arranjados[i].Limites.Top , Math.Abs(pt.Y - Arranjados[i].Limites.Top)});
-                Xs.Add(new double[2] { Arranjados[i].Limites.Left, Math.Abs(pt.X - Arranjados[i].Limites.Left)});
-            }
-            double x, y;
-            try
-            {
-                x = Xs.Min(z => z[0]);
-                y = Ys.Min(z => z[0]);
-            }
-            catch
-            {
-                x = 0;
-                y = 0;
-                return new System.Windows.Point(x, y);
-            }
-            if(Math.Abs(pt.X-x) <= Math.Abs(pt.Y - y) && Math.Abs(pt.X - x) < 40)
-            {
-                return new System.Windows.Point(x, pt.Y);
-            }else if (Math.Abs(pt.X - x) > Math.Abs(pt.Y - y) && Math.Abs(pt.Y - y) < 40)
-            {
-                return new System.Windows.Point(pt.X, y);
-            }
-            else
-            {
-                x = 0;
-                y = 0;
-                return new System.Windows.Point(x, y);
-            }
-            
-        }
         private bool Interno(Geometry layout)
         {
             IntersectionDetail resultado = layout.FillContainsWithDetail(this.Data);
@@ -185,11 +149,11 @@ namespace GuilhotiNest.ViewModel
             if (resultado == IntersectionDetail.FullyContains || resultado == IntersectionDetail.Empty) return false;
             return true;
         }
-        public void SalvarPosicao()
+        private void SalvarPosicao()
         {
             _BackupTransformacao = _Trans_Group.Clone();
         }
-        public void Ultima_Posicao()
+        private void Ultima_Posicao()
         {
             _Rotate = (RotateTransform)_BackupTransformacao.Children[1].Clone();
             _Translate = (TranslateTransform)_BackupTransformacao.Children[2].Clone();

@@ -23,7 +23,8 @@ namespace GuilhotiNest.ViewModel
         public static Layout Layout_Ativo { get; set; }
         public static Occurrences ActiveOcc { get; set; }
         public static Canvas Design { get; set; }
-
+        
+        //Comandos de Criação
         public static void Importar_Inventor(string caminho, TreeView tree)
         {
             InventorApp Inv = new InventorApp();
@@ -69,23 +70,49 @@ namespace GuilhotiNest.ViewModel
 
             }
         }
-        private static void Criar_Grupo(string material, double esp, List<Document> itens)
+        public static void Salvar_WorksSpace()
         {
-            Grupo grupo = new Grupo(material,esp);
-            foreach (var item in itens)
-            {
-                grupo.Documents.Add(item);
-            }
-            Tree.Add(grupo);
-            Grupos.Add(grupo);
+            string destino = @"C:\Users\pcp02\Desktop\Importações\Workspace.bin";
+            Stream SaveFileStream = File.Create(destino);
+            BinaryFormatter serializer = new BinaryFormatter();
+            serializer.Serialize(SaveFileStream, Tree);
+            SaveFileStream.Close();
         }
-        private static void Inserir_Grupo(Grupo grp, List<Document> itens)
+        public static void AbrirWorkspace(string caminho)
         {
-            foreach (var item in itens)
+            Stream openFileStream = File.OpenRead(caminho);
+            BinaryFormatter deserializer = new BinaryFormatter();
+            Tree = (ObservableCollection<object>)deserializer.Deserialize(openFileStream);
+            foreach (var obj in Tree)
             {
-                grp.Documents.Add(item);
+                if (obj.GetType() == typeof(Grupo))
+                {
+                    Grupos.Add((Grupo)obj);
+                    foreach (var doc in ((Grupo)obj).Documents)
+                    {
+                        Documentos.Add(doc);
+                        doc.Criar_Thumbnail();
+                    }
+                }
+                if (obj.GetType() == typeof(Tarefa)) { Tarefas.Add((Tarefa)obj); }
+
             }
+            openFileStream.Close();
         }
+        public static Layout NovoLayout_Retangular(double Alt_mm, double Comp_mm, Tarefa Parent)
+        {
+            string cmd = string.Format("M 0 0 h{0} v{1} h-{0}", Comp_mm, Alt_mm);
+            Geometry geo = Geometry.Parse(cmd).Clone();
+            double esc = (new[] { ((Design.ActualWidth * 0.95) / geo.Bounds.Width), ((Design.ActualHeight * 0.8) / geo.Bounds.Height) }).Min();
+
+            double Y = (Design.ActualHeight * 0.1);
+            double X = (Design.ActualWidth * 0.025);
+
+            System.Windows.Point Posic = new System.Windows.Point(X, Y);
+            return new Layout(01, esc, geo, Parent, Posic,1);
+        }
+
+        //Comandos de Alteração
         public static void Arranjar()
         {
             ActiveOcc.Limites = ActiveOcc.Design.Data.GetRenderBounds(new Pen());
@@ -127,34 +154,23 @@ namespace GuilhotiNest.ViewModel
             Layout_Ativo.Occs.Remove(ActiveOcc);
             ActiveOcc.Parent.Occs.Remove(ActiveOcc);
         }
-        public static void Salvar_WorksSpace()
+
+        private static void Criar_Grupo(string material, double esp, List<Document> itens)
         {
-            string destino = @"C:\Users\pcp02\Desktop\Importações\Workspace.bin";
-            Stream SaveFileStream = File.Create(destino);
-            BinaryFormatter serializer = new BinaryFormatter();
-            serializer.Serialize(SaveFileStream, Tree);
-            SaveFileStream.Close();
-        }
-        public static void AbrirWorkspace(string caminho)
-        {
-            Stream openFileStream = File.OpenRead(caminho);
-            BinaryFormatter deserializer = new BinaryFormatter();
-            Tree = (ObservableCollection<object>)deserializer.Deserialize(openFileStream);
-            foreach(var obj in Tree)
+            Grupo grupo = new Grupo(material, esp);
+            foreach (var item in itens)
             {
-                if (obj.GetType() == typeof(Grupo))
-                {
-                    Grupos.Add((Grupo)obj);
-                    foreach(var doc in ((Grupo)obj).Documents)
-                    {
-                        Documentos.Add(doc);
-                        doc.Criar_Thumbnail();
-                    }
-                }
-                if (obj.GetType() == typeof(Tarefa)) { Tarefas.Add((Tarefa)obj); }
-                
+                grupo.Documents.Add(item);
             }
-            openFileStream.Close();
+            Tree.Add(grupo);
+            Grupos.Add(grupo);
+        }
+        private static void Inserir_Grupo(Grupo grp, List<Document> itens)
+        {
+            foreach (var item in itens)
+            {
+                grp.Documents.Add(item);
+            }
         }
     }
 }

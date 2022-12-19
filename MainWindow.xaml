@@ -303,7 +303,6 @@
                     <Path Stroke="White" StrokeThickness="1" Data="M 0 -10 v 40 v-30 h 190 v 30 v -40"/>
                 </StackPanel>
             </Label>-->
-            <Line X1="10" Y1='10' Y2="30" X2="10" Stroke="White"/>
             <ContentPresenter Content="{Binding Design}"/>
         </Canvas>
         <Grid Margin="0" Height="40" VerticalAlignment="Bottom">

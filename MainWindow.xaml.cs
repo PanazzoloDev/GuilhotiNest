@@ -123,7 +123,8 @@ namespace GuilhotiNest
                     }
                     else
                     {
-                        Mover = false;                    
+                        Mover = false;
+
                         cmd_move.Stroke = Brushes.White;
                     }
                     break;
@@ -172,7 +173,6 @@ namespace GuilhotiNest
             frm.ShowDialog();
             arvore.ItemsSource = null;
             arvore.ItemsSource = Controle.Tree;
-
         }
         private void btn_auto_Click(object sender, RoutedEventArgs e)
         {

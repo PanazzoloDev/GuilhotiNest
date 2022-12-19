@@ -5,27 +5,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GuilhotiNest.ViewModel
 {
-    [Serializable()]
+
     public class Tarefa
     {
         public string Nome { get; set; } = "TaskDefault";
         public string Material { get; set; }
-        
-
         public double Espessura { get; set; }
 
+        public Canvas Design { get; set; }
         public ObservableCollection<Document> Documents { get; set; } = new ObservableCollection<Document>();
         public ObservableCollection<Layout> Layouts { get; set; } = new ObservableCollection<Layout>();
-        public Tarefa(string mat, double esp, double[] dim, string nome = "Default")
+        public Tarefa(string mat, double esp, double[] dim, string nome = "TaskDefault")
         {
-            Material = mat;
-            Nome = nome;
-            Espessura = esp;
-            
-            Layouts.Add(new Layout(01, dim, "m 0 0 h 1350 v 750 h -1350 z", this));
+            this.Material = mat;
+            this.Nome = nome;
+            this.Espessura = esp;
+
+            Layouts.Add(Controle.NovoLayout_Retangular(1200, 3000,this));
+
         }
     }
 }

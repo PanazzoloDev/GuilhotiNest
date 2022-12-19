@@ -20,6 +20,7 @@ namespace GuilhotiNest.ViewModel
         public double Comprimento { get; set; } = 3000;
         public double Escala { get; set; }
 
+        public System.Windows.Point Posição { get; set; }
         public Geometry Data { get; set; }
         public Tarefa Parent { get; set; }
         public ObservableCollection<Occurrences> Occs { get; set; }
@@ -32,19 +33,21 @@ namespace GuilhotiNest.ViewModel
         private RotateTransform _Rotate;
         private ScaleTransform _Scale;
 
-        public Layout(int id, double[] dim, string cmd, Tarefa pai, int rep = 1)
+        public Layout(int id, double esc, Geometry geometry, Tarefa pai, System.Windows.Point posic, int rep = 1)
         {
-            Número = id;
-            Parent = pai;
-            Repeticoes = rep;
-            Data = Geometry.Parse(cmd).Clone();
+            this.Número = id;
+            this.Posição = posic;
+            this.Parent = pai;
+            this.Repeticoes = rep;
+            this.Data = geometry;
+            this.Escala = esc;
 
             Criar_Design();
-            Design.Data.Transform = Aplicar_Transformacoes(dim);
+            this.Design.Data.Transform = Aplicar_Transformacoes();
 
-            Occs = new ObservableCollection<Occurrences>();
-            Limites = new ObservableCollection<Cortes>();
-            Retalho = this.Data.Clone();
+            this.Occs = new ObservableCollection<Occurrences>();
+            this.Limites = new ObservableCollection<Cortes>();
+            this.Retalho = this.Data.Clone();
 
         }
         public void Alterar_Context(Canvas Design)
@@ -66,15 +69,11 @@ namespace GuilhotiNest.ViewModel
                 Data = this.Data
             };
         }
-        private TransformGroup Aplicar_Transformacoes(double[] dim)
+        private TransformGroup Aplicar_Transformacoes()
         {
-            this.Escala = (new[] { ((dim[0] * 0.95) / Data.Bounds.Width), ((dim[1] * 0.8) / Data.Bounds.Height) }).Min();
-            double offset_y = (dim[0] * 0.1);
-            double offset_x = (dim[1] * 0.025);
-
             _Trans_Group = new TransformGroup();
             _Scale = new ScaleTransform(this.Escala, this.Escala);
-            _Translate = new TranslateTransform(offset_x, offset_y);
+            _Translate = new TranslateTransform(Posição.X, Posição.Y);
 
             _Trans_Group.Children.Add(_Scale);
             _Trans_Group.Children.Add(_Translate);
